@@ -1,0 +1,5 @@
+ nonogram.v1
+ - 셀 페인트(paint)와 블록(block) 추가
+ 
+ nonogram.v2
+ - 크기를 9x9에서 10x10으로 변경
