@@ -106,13 +106,15 @@ end
 always @* begin
     // 각 레벨 클리어 조건
     if (current_level == 0) begin
-        level_clear = (grid_paint == 100'b0000110110000100100100000000100000000100000111100001111110010111111110111111011111110111111111111111111);
+        level_clear = (grid_paint == 100'b0000110110000100100100000010000000001000000001111000001111110001111101000111111110111111111111111111);
     end else if (current_level == 1) begin
-        level_clear = (grid_paint == 104'b0011111100111111011101110101111101111110111001100001111000000011000001111100001111111001111111000111111110);
-    end else if (current_level == 2) begin
-        level_clear = (grid_paint == 100'b000011000000011110000111111100011111111011111111111111111111111111111111011011011000001100000000110000);
+        level_clear = (grid_paint == 100'b0011111100111111011110111101011111110111001110110000011110000000110000001111110000111111000111111110);
+    end else begin
+        level_clear = (grid_paint == 100'b0000110000000111100000111111000111111110111111111111111111111111111111011011011000001100000001111000);
     end
 end
+
+
 
 always @ (posedge clk or posedge rst) begin
     if (rst) begin
@@ -120,15 +122,12 @@ always @ (posedge clk or posedge rst) begin
         game_over <= 0;
         next_level <= 0;
     end else begin
-        // 레벨 클리어 조건 판단
-        if (level_clear) begin
-            game_over <= 1; 
+        // 게임이 시작되었을 때마다
+        if (!game_over && (next_level == current_level)) begin
             if (current_level == 2) 
                 next_level <= 0;
             else
                 next_level <= current_level + 1; 
-        end else begin
-
         end
     end
 end
